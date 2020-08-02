@@ -17,8 +17,8 @@ phases:
   pre_build:
     run-as: root
     commands:
-        - echo $VAR_APP_PORT
-        - echo $VAR_APP_HOSTNAME
+      - echo $VAR_APP_PORT
+      - echo $VAR_APP_HOSTNAME
       - echo Entered the pre_build phase ...
       - echo Logging in to Amazon ECR...
       - $(aws ecr get-login --no-include-email --region us-east-1)
