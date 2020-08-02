@@ -39,6 +39,9 @@ ENV LANG=C.UTF-8
 RUN apk add --update openssl ncurses-libs postgresql-client && \
     rm -rf /var/cache/apk/*
 
+EXPOSE 4000
+ENV MIX_ENV=prod
+
 # Copy over the build artifact from the previous step and create a non root user
 RUN adduser -D -h /home/app app
 WORKDIR /home/app
@@ -60,6 +63,7 @@ ARG APP_HOSTNAME
 ARG DB_USER
 ARG DB_PASSWORD
 ARG SECRET_KEY_BASE
+ARG DB_HOST
 
 ENV APP_PORT=$APP_PORT
 ENV APP_HOSTNAME=$APP_HOSTNAME
