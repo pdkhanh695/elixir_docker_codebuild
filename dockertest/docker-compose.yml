@@ -1,0 +1,33 @@
+version: '3'
+
+services:
+  application:
+    image: docker.io/cloudphan/docker-compose-test:first_image
+    container_name: elixir_app
+    command: ./dockertest/run_test.sh #mix deps.get && mix test #mix phx.server
+    #command: mix phx.server
+    environment:
+      - MIX_ENV=test
+      - PORT=4000
+      - DATABASE_URL=ecto://postgres:postgres_pass@postgres/dev_db
+    volumes:
+      - ..:/app
+    ports:
+      - "4000:4000"
+    links:
+      - postgres
+      
+  postgres:
+    image: postgres:11.8-alpine
+    restart: always
+    container_name: elixir-postgres
+    environment:
+      - POSTGRES_DB=dev_db
+      - POSTGRES_PASSWORD=postgres_pass
+    volumes: 
+      - ./postgresvol:/var/lib/postgresql/data #persist data even if container shuts down
+    ports:
+      - 5432:5432
+
+    
+
