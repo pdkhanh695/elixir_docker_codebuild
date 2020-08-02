@@ -52,6 +52,7 @@ defmodule PocElixirDockerApp.MixProject do
       {:plug_cowboy, "~> 2.0"},
       {:junit_formatter, "~> 3.1", only: [:test]},
       {:excoveralls, "~> 0.10", only: :test},
+      {:dialyzex, "~> 1.2", only: [:dev], runtime: false}
     ]
   end
 

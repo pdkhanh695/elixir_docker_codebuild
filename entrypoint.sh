@@ -11,6 +11,6 @@ do
 done
 
 
-#./prod/rel/poc_elixir_docker_app/bin/poc_elixir_docker_app eval PocElixirDockerApp.Release.migrate
+./prod/rel/poc_elixir_docker_app/bin/poc_elixir_docker_app eval PocElixirDockerApp.Release.migrate
 
 ./prod/rel/poc_elixir_docker_app/bin/poc_elixir_docker_app start

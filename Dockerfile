@@ -6,6 +6,20 @@ ENV MIX_ENV=prod \
     TEST=1 \
     LANG=C.UTF-8
 
+ARG APP_PORT
+ARG APP_HOSTNAME
+ARG DB_USER
+ARG DB_PASSWORD
+ARG DB_HOST
+ARG SECRET_KEY_BASE
+
+ENV APP_PORT=$APP_PORT \
+    APP_HOSTNAME=$APP_HOSTNAME \
+    DB_USER=$DB_USER \
+    DB_PASSWORD=$DB_PASSWORD \
+    DB_HOST=$DB_HOST \
+    SECRET_KEY_BASE=$SECRET_KEY_BASE
+
 RUN apk add --update git && \
     rm -rf /var/cache/apk/*
 
@@ -45,7 +59,7 @@ COPY --from=app_builder /app/_build .
 RUN chown -R app: ./prod
 USER app
 
-RUN ./prod/rel/poc_elixir_docker_app/bin/poc_elixir_docker_app eval PocElixirDockerApp.Release.migrate
+
 COPY entrypoint.sh .
 
 # Run the Phoenix app
