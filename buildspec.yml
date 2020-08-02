@@ -1,6 +1,6 @@
 version: 0.2
 
-env:
+# env:
     # variables:
     #     APP_PORT: 4000
     #     APP_HOSTNAME: localhost
