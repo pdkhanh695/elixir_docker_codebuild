@@ -2,12 +2,12 @@ version: 0.2
 
 env:
     variables:
-        APP_PORT: 4000
-        APP_HOSTNAME: localhost
-        DB_USER: postgres
-        DB_PASSWORD: postgres
-        DB_HOST: postgres.chjup0ji0a5y.us-east-1.rds.amazonaws.com
-        SECRET_KEY_BASE: FgpNsLszr+jdqyiHytZQNZ+FXUCK1yIUJEPUOUtJXEZK91ju/jFaGjwYaQDSQCkM
+        VAR_APP_PORT: 4000
+        VAR_APP_HOSTNAME: localhost
+        VAR_DB_USER: postgres
+        VAR_DB_PASSWORD: postgres
+        VAR_DB_HOST: postgres.chjup0ji0a5y.us-east-1.rds.amazonaws.com
+        VAR_SECRET_KEY_BASE: FgpNsLszr+jdqyiHytZQNZ+FXUCK1yIUJEPUOUtJXEZK91ju/jFaGjwYaQDSQCkM
 
 phases:
   install:
@@ -29,7 +29,10 @@ phases:
       - echo Build started on `date`
       - echo Entered the build phase ...
       - echo Building the Docker image...       
-      - docker build -t $REPOSITORY_URI:latest .
+      - docker build -t $REPOSITORY_URI:latest --build-arg \
+            APP_PORT=VAR_APP_PORT APP_HOSTNAME=VAR_APP_HOSTNAME \
+            DB_USER=VAR_DB_USER DB_PASSWORD=VAR_DB_PASSWORD \
+            DB_HOST=VAR_DB_HOST SECRET_KEY_BASE=VAR_SECRET_KEY_BASE
       - docker tag $REPOSITORY_URI:latest $REPOSITORY_URI:$IMAGE_TAG    
   post_build:
     run-as: root
