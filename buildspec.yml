@@ -1,0 +1,41 @@
+version: 0.2
+
+env:
+    variables:
+        APP_PORT: 4000
+        APP_HOSTNAME: localhost
+        DB_USER: postgres
+        DB_PASSWORD: postgres
+        DB_HOST: postgres.chjup0ji0a5y.us-east-1.rds.amazonaws.com
+        SECRET_KEY_BASE: FgpNsLszr+jdqyiHytZQNZ+FXUCK1yIUJEPUOUtJXEZK91ju/jFaGjwYaQDSQCkM
+
+phases:
+  install:
+    run-as: root
+    commands:
+      - echo Entered the install phase ...
+  pre_build:
+    run-as: root
+    commands:
+      - echo Entered the pre_build phase ...
+      - echo Logging in to Amazon ECR...
+      - $(aws ecr get-login --no-include-email --region us-east-1)
+      - REPOSITORY_URI=756081003265.dkr.ecr.us-east-1.amazonaws.com/khanh-testdockerelixir
+      - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
+      - IMAGE_TAG=${COMMIT_HASH:=latest}
+  build:
+    run-as: root
+    commands:
+      - echo Build started on `date`
+      - echo Entered the build phase ...
+      - echo Building the Docker image...       
+      - docker build -t $REPOSITORY_URI:latest .
+      - docker tag $REPOSITORY_URI:latest $REPOSITORY_URI:$IMAGE_TAG    
+  post_build:
+    run-as: root
+    commands:
+      - echo Entered the post_build phase ...
+      - echo Build completed on `date`
+      - echo Pushing the Docker image...
+      #- docker push $REPOSITORY_URI:latest
+      - docker push $REPOSITORY_URI:$IMAGE_TAG
