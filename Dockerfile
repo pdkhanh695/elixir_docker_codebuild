@@ -7,13 +7,6 @@ ENV MIX_ENV=prod \
     TEST=1 \
     LANG=C.UTF-8
 
-# ENV APP_PORT="4000"
-# ENV APP_HOSTNAME="localhost"
-# ENV DB_USER="postgres"
-# ENV DB_PASSWORD="postgres"
-# ENV DB_HOST="postgres.chjup0ji0a5y.us-east-1.rds.amazonaws.com"
-# ENV SECRET_KEY_BASE="FgpNsLszr+jdqyiHytZQNZ+FXUCK1yIUJEPUOUtJXEZK91ju/jFaGjwYaQDSQCkM"
-
 RUN apk add --update git && \
     rm -rf /var/cache/apk/*
 
@@ -55,6 +48,13 @@ USER app
 
 
 COPY entrypoint.sh .
+
+ENV APP_PORT=4000
+ENV APP_HOSTNAME=localhost
+ENV DB_USER=postgres
+ENV DB_PASSWORD=postgres
+ENV DB_HOST=postgres.chjup0ji0a5y.us-east-1.rds.amazonaws.com
+ENV SECRET_KEY_BASE=FgpNsLszr+jdqyiHytZQNZ+FXUCK1yIUJEPUOUtJXEZK91ju/jFaGjwYaQDSQCkM
 
 # Run the Phoenix app
 CMD ["sh","./entrypoint.sh"]
