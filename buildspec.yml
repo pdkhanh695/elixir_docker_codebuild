@@ -2,12 +2,12 @@ version: 0.2
 
 env:
     variables:
-        APP_PORT: "4000"
-        APP_HOSTNAME: "localhost"
-        DB_USER: "postgres"
-        DB_PASSWORD: "postgres"
-        DB_HOST: "postgres.chjup0ji0a5y.us-east-1.rds.amazonaws.com"
-        SECRET_KEY_BASE: "FgpNsLszr+jdqyiHytZQNZ+FXUCK1yIUJEPUOUtJXEZK91ju/jFaGjwYaQDSQCkM"
+        APP_PORT: 4000
+        APP_HOSTNAME: localhost
+        DB_USER: postgres
+        DB_PASSWORD: postgres
+        DB_HOST: postgres.chjup0ji0a5y.us-east-1.rds.amazonaws.com
+        SECRET_KEY_BASE: FgpNsLszr+jdqyiHytZQNZ+FXUCK1yIUJEPUOUtJXEZK91ju/jFaGjwYaQDSQCkM
 
 phases:
   install:
