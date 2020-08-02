@@ -17,6 +17,8 @@ phases:
   pre_build:
     run-as: root
     commands:
+        - echo $VAR_APP_PORT
+        - echo $VAR_APP_HOSTNAME
       - echo Entered the pre_build phase ...
       - echo Logging in to Amazon ECR...
       - $(aws ecr get-login --no-include-email --region us-east-1)
@@ -30,12 +32,12 @@ phases:
       - echo Entered the build phase ...
       - echo Building the Docker image...       
       - docker build -t $REPOSITORY_URI:latest 
-            --build-arg APP_PORT=${VAR_APP_PORT}
-            --build-arg APP_HOSTNAME=${VAR_APP_HOSTNAME}
-            --build-arg DB_USER=${VAR_DB_USER} 
-            --build-arg DB_PASSWORD=${VAR_DB_PASSWORD} 
-            --build-arg DB_HOST=${VAR_DB_HOST} 
-            --build-arg SECRET_KEY_BASE=${VAR_SECRET_KEY_BASE}
+            --build-arg APP_PORT=$VAR_APP_PORT
+            --build-arg APP_HOSTNAME=$VAR_APP_HOSTNAME 
+            --build-arg DB_USER=$VAR_DB_USER 
+            --build-arg DB_PASSWORD=$VAR_DB_PASSWORD 
+            --build-arg DB_HOST=$VAR_DB_HOST 
+            --build-arg SECRET_KEY_BASE=$VAR_SECRET_KEY_BASE
       - docker tag $REPOSITORY_URI:latest $REPOSITORY_URI:$IMAGE_TAG    
   post_build:
     run-as: root
