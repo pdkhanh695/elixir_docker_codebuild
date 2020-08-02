@@ -1,11 +1,11 @@
 import Config
 
-secret_key_base = System.get_env("SECRET_KEY_BASE") #System.fetch_env!("SECRET_KEY_BASE")
-app_port = System.get_env("APP_PORT") #System.fetch_env!("APP_PORT")
-app_hostname = System.get_env("APP_HOSTNAME") #System.fetch_env!("APP_HOSTNAME")
-db_user = System.get_env("DB_USER") #System.fetch_env!("DB_USER")
-db_password = System.get_env("DB_PASSWORD") #System.fetch_env!("DB_PASSWORD")
-db_host = System.get_env("DB_HOST") #System.fetch_env!("DB_HOST")
+secret_key_base = System.fetch_env!("SECRET_KEY_BASE")
+app_port = System.fetch_env!("APP_PORT")
+app_hostname = System.fetch_env!("APP_HOSTNAME")
+db_user = System.fetch_env!("DB_USER")
+db_password = System.fetch_env!("DB_PASSWORD")
+db_host = System.fetch_env!("DB_HOST")
 
 config :poc_elixir_docker_app, PocElixirDockerAppWeb.Endpoint,
   http: [:inet6, port: String.to_integer(app_port)],

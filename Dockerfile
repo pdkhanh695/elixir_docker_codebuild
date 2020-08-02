@@ -1,4 +1,4 @@
-# ---- Build Stage ----
+# Build Stage 
 FROM elixir:alpine AS app_builder
 
 # Set environment variables for building the application
@@ -29,7 +29,7 @@ RUN mix deps.get
 RUN mix deps.compile
 RUN mix release
 
-# ---- Application Stage ----
+# Application Stage 
 FROM alpine AS app
 
 ENV LANG=C.UTF-8
@@ -45,8 +45,14 @@ COPY --from=app_builder /app/_build .
 RUN chown -R app: ./prod
 USER app
 
-COPY entrypoint.sh .
+# ENV APP_PORT=4000
+# ENV APP_HOSTNAME=localhost
+# ENV DB_USER=postgres
+# ENV DB_PASSWORD=postgres
+# ENV DB_HOST=postgres.chjup0ji0a5y.us-east-1.rds.amazonaws.com
+# ENV SECRET_KEY_BASE=FgpNsLszr+jdqyiHytZQNZ+FXUCK1yIUJEPUOUtJXEZK91ju/jFaGjwYaQDSQCkM
 
+COPY entrypoint.sh .
 
 # Run the Phoenix app
 CMD ["sh","./entrypoint.sh"]
